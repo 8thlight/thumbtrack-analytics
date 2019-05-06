@@ -1,5 +1,7 @@
 ## Google Analytics
 
+### Service Account Credentials
+
 1. Create a new project through the [Google Developer's Console](https://console.developers.google.com).
 1. Enable the Google Analytics Reporting API.
 1. Find out what kind of credentials are needed:
@@ -13,4 +15,7 @@
     * Key type: JSON
 1. Move the key into the project as "google-service-account-key.json"
 
+### Analytics Reporting
 
+1. Extract the email address from the generated service account key, and add it as a User to the Google Analytics project.
+1. Grab the View ID for the web site, and store it in "google-analytics-view.json".

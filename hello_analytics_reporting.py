@@ -1,12 +1,13 @@
 """Hello Analytics Reporting API V4."""
+import json
 
 from apiclient.discovery import build
 from oauth2client.service_account import ServiceAccountCredentials
 
 
 SCOPES = ['https://www.googleapis.com/auth/analytics.readonly']
-KEY_FILE_LOCATION = '<REPLACE_WITH_JSON_FILE>'
-VIEW_ID = '<REPLACE_WITH_VIEW_ID>'
+KEY_FILE_LOCATION = 'google-service-account-key.json'
+VIEW_ID = json.load(open('google-analytics-view.json'))['view_id']
 
 
 def initialize_analyticsreporting():
@@ -61,12 +62,12 @@ def print_response(response):
       dateRangeValues = row.get('metrics', [])
 
       for header, dimension in zip(dimensionHeaders, dimensions):
-        print header + ': ' + dimension
+        print(header + ': ' + dimension)
 
       for i, values in enumerate(dateRangeValues):
-        print 'Date range: ' + str(i)
+        print('Date range: ' + str(i))
         for metricHeader, value in zip(metricHeaders, values.get('values')):
-          print metricHeader.get('name') + ': ' + value
+          print(metricHeader.get('name') + ': ' + value)
 
 
 def main():
