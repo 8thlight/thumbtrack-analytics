@@ -1,0 +1,41 @@
+---
+title: "`Thumbtrack::railsconf.today`"
+output:
+  github_document: {}
+---
+```{r config, include=FALSE}
+library(knitr)
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,
+               dev="png")
+read_chunk("report.R")
+
+library(tidyverse)
+library(patchwork)
+
+theme_set(theme_minimal(base_size=14))
+```
+```{r report, include=FALSE}
+```
+
+# How many people were using the site?
+
+During the conference, the site was visited a total of
+`r c_$during_conference_visits` times. Many of these visits were by the same
+people. We know that the site was visited by `r c_$num_devices` unique devices,
+but it is likely some of these devices are owned by the same people [^issue88].
+Most of the visits were during conference hours. The hours of the conference,
+along with the times of the conference events, are shown below.
+
+[^issue88]: We are seeking to improve our Google Analytics integration. See [Issue #88](https://github.com/8thlight/thumbtrack/issues/88).
+
+Key results:
+
+* Visits were consistent across all three days of the conference.
+* Low visits before the conference could indicate the need for better promotion.
+* Low visits after conference hours could indicate the need to support Community Events.
+
+```{r sessions, fig.width=8, fig.height=8}
+sessions_per_hour_plot +
+  { conference_day_type_plot + hour_type_plot } +
+  plot_layout(nrow = 2)
+```

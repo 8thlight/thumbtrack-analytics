@@ -3,3 +3,7 @@ htmlcov/
 google-service-account-key.json
 google-analytics-view.json
 data/
+data-raw/
+*.html
+.Rproj.user
+report_cache/

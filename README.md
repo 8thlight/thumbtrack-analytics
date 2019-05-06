@@ -1,3 +1,5 @@
+# Thumbtrack Analytics
+
 ## Google Analytics
 
 ### Service Account Credentials
@@ -20,8 +22,24 @@
 1. Extract the email address from the generated service account key, and add it as a User to the Google Analytics project.
 1. Grab the View ID for the web site, and store it in "google-analytics-view.json".
 
-### Documentation
+### Helpful links
 
 * [Creating a Report](https://developers.google.com/analytics/devguides/reporting/core/v4/basics)
 * [Analytics Reporting API](https://developers.google.com/analytics/devguides/reporting/core/v4/rest/)
 * [Dimensions & Metrics Explorer](https://developers.google.com/analytics/devguides/reporting/core/dimsmets)
+
+## Python environment
+
+```bash
+pipenv install --dev
+```
+
+## Getting the data
+
+The code for downloading and processing data via the Google Analytics API
+is in the python module "analytics".
+
+```bash
+python -m analytics --list  # list available reports
+python -m analytics sessions
+```
