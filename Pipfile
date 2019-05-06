@@ -4,10 +4,20 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
+jupyter = "*"
+black = "*"
+pre-commit = "*"
+pytest = "*"
+datatest = "*"
+pytest-cov = "*"
 
 [packages]
 google-api-python-client = "*"
 oauth2client = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
+
+[pipenv]
+allow_prereleases = true

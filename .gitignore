@@ -1,2 +1,5 @@
+.coverage
+htmlcov/
 google-service-account-key.json
 google-analytics-view.json
+data/
