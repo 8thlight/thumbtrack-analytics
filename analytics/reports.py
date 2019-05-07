@@ -2,7 +2,7 @@ from functools import wraps
 
 import pandas
 
-from analytics import google
+from analytics import google, utils
 from analytics.config import VIEW_ID, RAILS_CONF_DATE_RANGE
 
 
@@ -32,30 +32,101 @@ def sessions(analyticsreporting):
     report = response["reports"][0]
     data = google.parse_report(report)
     results = pandas.DataFrame(data, columns=["date", "hour", "metric", "value"])
+    results = utils.convert_date_hour_to_cst_datetime(results)
+    results["metric"] = utils.parse_metric_name(results.metric)
+    results = utils.label_conference_day(results)
+    return results
 
-    # convert datetime objects
-    results.insert(0, "datetime", pandas.to_datetime(results.date + "-" + results.hour))
-    results["datetime"] = results.datetime + pandas.Timedelta(
-        "02:00:00"
-    )  # convert to CST
-    results["date"] = results.datetime.apply(lambda datetime: datetime.date())
-    results["hour"] = results.datetime.apply(lambda datetime: datetime.hour)
 
-    # remove "ga:" prefix from metric names
-    results["metric"] = results.metric.str.strip("ga:")
+@report
+def devices(analyticsreporting):
+    request = {
+        "viewId": VIEW_ID,
+        "dateRanges": [RAILS_CONF_DATE_RANGE],
+        "metrics": [{"expression": "ga:users"}],
+        "dimensions": [{"name": "ga:deviceCategory"}],
+    }
+    response = google.get_report(analyticsreporting, request)
+    report = response["reports"][0]
+    data = google.parse_report(report)
+    results = pandas.DataFrame(data, columns=["device", "metric", "value"])
+    results["metric"] = utils.parse_metric_name(results.metric)
+    return results
 
-    # label conference day
-    conference_day_map = pandas.DataFrame(
-        {
-            "date": pandas.to_datetime(
-                ["20190429", "20190430", "20190501", "20190502"]
-            ),
-            "conference_day": [-1, 1, 2, 3],
-        }
+
+@report
+def browser_sizes(analyticsreporting):
+    request = {
+        "viewId": VIEW_ID,
+        "dateRanges": [RAILS_CONF_DATE_RANGE],
+        "metrics": [{"expression": "ga:sessions"}],
+        "dimensions": [{"name": "ga:deviceCategory"}, {"name": "ga:browserSize"}],
+    }
+    response = google.get_report(analyticsreporting, request)
+    report = response["reports"][0]
+    data = google.parse_report(report)
+    results = pandas.DataFrame(
+        data, columns=["device", "dimensions", "metric", "value"]
     )
-    conference_day_map["date"] = conference_day_map.date.apply(
-        lambda datetime: datetime.date()
-    )
-    results = results.merge(conference_day_map)
+    results["metric"] = utils.parse_metric_name(results.metric)
+
+    # extract width and height dimensions
+    dimensions = results.dimensions.str.split("x", expand=True)
+    dimensions.columns = ["width", "height"]
+    dimensions = dimensions.loc[
+        (dimensions.width.str.isnumeric()) & (dimensions.height.str.isnumeric()), :
+    ].astype(int)
+    results = results.merge(dimensions, left_index=True, right_index=True)
+    results.dropna(subset=["width", "height"], inplace=True)
 
     return results
+
+
+@report
+def events(analyticsreporting):
+    request = {
+        "viewId": VIEW_ID,
+        "dateRanges": [RAILS_CONF_DATE_RANGE],
+        "metrics": [{"expression": "ga:totalEvents"}],
+        "dimensions": [
+            {"name": "ga:eventCategory"},
+            {"name": "ga:eventAction"},
+            {"name": "ga:date"},
+            {"name": "ga:hour"},
+        ],
+    }
+    response = google.get_report(analyticsreporting, request)
+    report = response["reports"][0]
+    data = google.parse_report(report)
+    results = pandas.DataFrame(
+        data, columns=["category", "action", "date", "hour", "metric", "value"]
+    )
+    results = utils.convert_date_hour_to_cst_datetime(results)
+    results["metric"] = utils.parse_metric_name(results.metric)
+    results = utils.label_conference_day(results)
+    return results
+
+
+@report
+def new_users(analyticsreporting):
+    request = {
+        "viewId": VIEW_ID,
+        "dateRanges": [RAILS_CONF_DATE_RANGE],
+        "metrics": [{"expression": "ga:newUsers"}],
+        "dimensions": [{"name": "ga:date"}, {"name": "ga:hour"}],
+    }
+    response = google.get_report(analyticsreporting, request)
+    report = response["reports"][0]
+    data = google.parse_report(report)
+    results = pandas.DataFrame(data, columns=["date", "hour", "metric", "value"])
+    results = utils.convert_date_hour_to_cst_datetime(results)
+    results = utils.label_conference_day(results)
+    return results
+
+
+def duration(analyticsreporting):
+    pass
+
+
+def site_speed(analyticsreporting):
+    pass
