@@ -20,5 +20,53 @@ Key results:
 
 ![](report_files/figure-gfm/sessions-1.png)<!-- -->
 
+# When did new users arrive at the site?
+
+How did the railsconf.today spread among conference participants? If
+people were sharing the app organically throughout the conference, we
+might see a pickup in new users throughout the conference. Instead, what
+we see is that new users were “front loaded”, meaning that most of them
+knew about the app either before the conference or started using it in
+the first day.
+
+![](report_files/figure-gfm/new-users-1.png)<!-- -->
+
+# What devices did people use to view the site?
+
+This site was designed as a “mobile first” web application, but what
+percentage of users used the app on a mobile device? During Rails Conf,
+72% of users were on mobile devices. The total numbers of mobile,
+desktop, and tablet devices are shown below.
+
+Some of the styling on the site depends on a media query based on
+browser width. For future uses of the site, we want to be able to ensure
+the best possible viewing experience by knowing the typical viewing
+dimensions. During the conference, the smallest mobile device view
+registered 320 x 280 pixels. The distribution of browser widths by
+device is shown below.
+
+![](report_files/figure-gfm/devices-1.png)<!-- -->
+
+# How are people interacting with the site?
+
+Users can interact with the app in a few ways. They can view the
+schedule for different days of the conference. They can swipe to view
+the parallel events in a single timeslot, or dropdown to see all the
+parallel events in a list. They can pin an event in a parallel timeslot
+that they want to see. And they can click on outbound links to the
+official conference website, or to 8th Light’s website.
+
+Users were most active in terms of events on the first day of the
+conference. Given that visits to the site were consistent across all
+days of the conference, this suggests that many users explored the site
+during their first few visits, viewing all the events, and pinning the
+ones they wanted to go to. On subsequent days, users continued to use
+the site, but without interacting with it as much, indicating that they
+were using it as their scheduler for the conference.
+
+![](report_files/figure-gfm/events-1.png)<!-- -->
+
+# Footnotes
+
 1.  We are seeking to improve our Google Analytics integration. See
     [Issue \#88](https://github.com/8thlight/thumbtrack/issues/88).
