@@ -1,5 +1,14 @@
 # Thumbtrack Analytics
 
+Thumbtrack is a "mobile first" web app for conferences. Users can browse
+the conference schedule, swipe and dropdown to view events in parallel sessions,
+and pin events they want to see.
+
+This repo contains an analysis of the site traffic and user events during
+Rails Conf 2019.
+
+See [report.md](./report.md) for the results.
+
 ## Google Analytics
 
 ### Service Account Credentials
@@ -8,7 +17,7 @@
 1. Enable the Google Analytics Reporting API.
 1. Find out what kind of credentials are needed:
     * Which API are you using? **Analytics Reporting API**
-    * Where will you be calling the API from? **Other UI (e.g. Windows, CLI tool)
+    * Where will you be calling the API from? **Other UI (e.g. Windows, CLI tool)**
     * What data will you be accessing? **Application data**
 1. Create a service account.
     * Service account name: **thumbtrack-analytics**
@@ -41,5 +50,5 @@ is in the python module "analytics".
 
 ```bash
 python -m analytics --list  # list available reports
-python -m analytics sessions
+python -m analytics --all   # collect all report data 
 ```
