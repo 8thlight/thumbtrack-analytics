@@ -20,3 +20,17 @@ RailsConf2019$hour <- RailsConf2019$start_time %>%
   .$hour
 
 write_csv(RailsConf2019, "data/rails_conf_2019.csv")
+
+# user-explorer ----
+UserExplorer <- read_csv("data-raw/user_explorer.csv", skip = 5) %>%
+  rename_all(function(name) {
+    name %>%
+      str_replace("\\.", "") %>%
+      str_replace_all(" ", "_") %>%
+      str_to_lower()
+    }) %>%
+  select(
+    client_id, sessions, avg_session_duration, bounce_rate
+  )
+
+write_csv(UserExplorer, "data/user_explorer.csv")

@@ -66,6 +66,22 @@ were using it as their scheduler for the conference.
 
 ![](report_files/figure-gfm/events-1.png)<!-- -->
 
+# Lessons learned with Google Analytics
+
+To get the most out of Google Analytics, we need to be sending more data
+with each event. For example, we don’t care as much that a person pinned
+an event as we care **which** event they pinned. For the dropdowns and
+pin buttons that can be toggled, we should record the direction of the
+toggle, so that we aren’t counting the same event twice.
+
+The best analyses that can come from these data requires us to add the
+concept of a user to the tracking system. By default Google Analytics
+records unique IDs for each device, but given our current setup, we
+cannot query events by client ID.
+
+We might also consider adding campaign data to the URL so we can learn
+how people are finding out about the app.
+
 # Footnotes
 
 1.  We are seeking to improve our Google Analytics integration. See

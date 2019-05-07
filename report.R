@@ -79,6 +79,8 @@ Events <- read_csv("data/events.csv") %>%
   label_hour() %>%
   label_event_category()
 
+UserExplorer <- read_csv("data/user_explorer.csv")
+
 # visits ----
 
 sessions_per_hour_plot <- Sessions %>%
@@ -219,7 +221,14 @@ events_plot <- Events %>%
     panel.grid.major.x = element_blank()
   )
 
-# in text citations ----
+# user-explorer ----
+user_explorer_plot <- ggplot(UserExplorer) +
+  aes(sessions, avg_session_duration) +
+  geom_point(position = position_jitter(width = 0.2),
+             alpha = 0.8, color = t_$colors("blue"), size = 2) +
+  coord_cartesian(xlim = c(1, 30))
+
+# in-text-citations ----
 
 c_ <- list(
   before_conference_visits = filter(Sessions, conference_day_type == "before_conference") %>%
