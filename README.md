@@ -52,3 +52,13 @@ is in the python module "analytics".
 python -m analytics --list  # list available reports
 python -m analytics --all   # collect all report data 
 ```
+
+## Compiling the report
+
+The report, [report.Rmd](./report.Rmd) is written in Rmarkdown,
+and compiled to output formats using the R package "rmarkdown".
+The build process is contained in the "Makefile" for the project.
+
+```bash
+make
+```
