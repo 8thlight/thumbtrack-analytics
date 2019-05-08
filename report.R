@@ -3,6 +3,8 @@ library(tidyverse)
 
 set.seed(213)
 
+CONFERENCE_HOURS <- 8:18
+
 # theme elements ----
 
 t_ <- list(
@@ -13,9 +15,10 @@ t_ <- list(
   ylim_visits = c(0, 100),
   colors = function(...) {
     theme_colors <- RColorBrewer::brewer.pal(4, "Set2")
-    names(theme_colors) <- c("blue", "orange", "green", "pink")
+    names(theme_colors) <- c("green", "orange", "blue", "pink")
     unname(theme_colors[c(...)])
-  }
+  },
+  point_size = 3
 )
 
 
@@ -34,7 +37,7 @@ label_conference_day <- function(frame) {
 label_hour <- function(frame) {
   levels <- c("during_conference", "after_hours")
   labels <- c("During conference", "After hours")
-  during_conference <- 9:18
+  during_conference <- CONFERENCE_HOURS
   after_hours <- setdiff(0:23, during_conference)
   types <- rep(levels, times = c(length(during_conference), length(after_hours)))
   map <- tibble(
@@ -86,39 +89,46 @@ UserExplorer <- read_csv("data/user_explorer.csv")
 sessions_per_hour_plot <- Sessions %>%
   ggplot() +
   aes(hour, group = conference_day) +
+  geom_vline(aes(xintercept = hour),
+             data = tibble(hour = range(CONFERENCE_HOURS)),
+             linetype = "dashed", color = "gray", size = 1.2) +
+  geom_point(aes(y = value, color = conference_day_label, shape = hour_type_label),
+             size = t_$point_size) +
   geom_line(aes(y = value, color = conference_day_label),
-            size = 2) +
+            size = 0.5, show.legend = FALSE) +
   geom_rug(data = distinct(RailsConf, hour, conference_day),
            color = "gray", size = 1.2) +
+  scale_shape_manual(values = c(16, 1), guide = FALSE) +
   scale_x_continuous(breaks = 0:23) +
   t_$scale_y_visits +
   scale_color_brewer(palette = "Set2") +
-  coord_cartesian(ylim = t_$ylim_visits, expand = FALSE) +
+  coord_cartesian(ylim = t_$ylim_visits, expand = FALSE, clip = "off") +
   labs(
     x = "Hour",
     color = "",
-    title = "Visits per hour to railsconf.today"
+    title = "A. Visits per hour to railsconf.today"
   ) +
   t_$base_theme +
   theme(
-    legend.position = c(0.1, 0.9)
+    legend.position = c(0.08, 0.9)
   )
 
 conference_day_type_plot <- Sessions %>%
   filter(hour_type == "during_conference") %>%
   ggplot() +
   aes(conference_day_type, value) +
-  geom_point(aes(color = conference_day_type),
-             position = position_jitter(width = 0.1, height = 0)) +
+  geom_point(aes(color = conference_day_label),
+             position = position_jitter(width = 0.1, height = 0),
+             size = t_$point_size) +
   scale_x_discrete(labels = c("Before conference", "During conference")) +
   t_$scale_y_visits +
-  scale_color_manual(values = t_$colors("blue", "green"), guide = FALSE) +
+  scale_color_brewer(palette = "Set2", guide = FALSE) +
   coord_cartesian(ylim = t_$ylim_visits) +
   labs(
     x = "",
     y = "Visits",
     color = "",
-    title = "Days before and during",
+    title = "B. Days before and during",
     subtitle = "Visits per hour before the conference\ncompared to during the conference"
   ) +
   t_$base_theme +
@@ -130,14 +140,16 @@ hour_type_plot <- Sessions %>%
   filter(conference_day_type == "during_conference") %>%
   ggplot() +
   aes(hour_type_label, value) +
-  geom_point(aes(color = hour_type_label),
-             position = position_jitter(width = 0.1, height = 0)) +
-  scale_color_manual(values = t_$colors("green", "blue"), guide = FALSE) +
+  geom_point(aes(color = conference_day_label, shape = hour_type_label),
+             position = position_jitter(width = 0.1, height = 0),
+             size = t_$point_size) +
+  scale_color_manual(values = t_$colors("orange", "blue", "pink"), guide = FALSE) +
+  scale_shape_manual(values = c(16, 1), guide = FALSE) +
   t_$scale_y_visits +
   coord_cartesian(ylim = t_$ylim_visits) +
   labs(
     x = "",
-    title = "Hours during and after",
+    title = "C. Hours during and after",
     subtitle = "Visits per hour during conference hours\ncompared to after hours."
   ) +
   t_$base_theme +
@@ -147,19 +159,25 @@ hour_type_plot <- Sessions %>%
 
 # new-users ----
 new_users_plot <- NewUsers %>%
+  group_by(conference_day) %>%
+  summarize(
+    new_users = sum(value)
+  ) %>%
+  label_conference_day() %>%
   ggplot() +
-  aes(hour, value, group = conference_day) +
-  geom_line(aes(color = conference_day_label),
-            size = 2) +
-  scale_x_continuous(breaks = 0:23) +
-  scale_color_brewer(palette = "Set2") +
+  aes(conference_day_label, new_users) +
+  geom_bar(aes(fill = conference_day_label), stat = "sum",
+           color = "black", size = 0.6) +
+  geom_text(aes(label = new_users), nudge_y = 9) +
+  scale_y_continuous("New users") +
+  scale_fill_brewer(palette = "Set2") +
   t_$base_theme +
   theme(
-    legend.position = c(0.15, 0.9)
+    legend.position = "none",
+    panel.grid.major.x = element_blank()
   ) +
   labs(
-    x = "Hour",
-    color = "",
+    x= "",
     y = "New users",
     title = "New users to railsconf.today"
   )
@@ -209,7 +227,8 @@ events_plot <- Events %>%
   label_event_category() %>%
   ggplot() +
   aes(conference_day_label, events) +
-  geom_bar(aes(fill = conference_day_label), stat = "identity") +
+  geom_bar(aes(fill = conference_day_label), stat = "identity",
+           color = "black") +
   facet_wrap("category_label", scales = "free_y", nrow = 1) +
   scale_fill_brewer(palette = "Set2", guide = FALSE) +
   labs(
