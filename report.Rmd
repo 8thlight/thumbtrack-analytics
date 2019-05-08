@@ -1,5 +1,5 @@
 ---
-title: "How was Thumbtrack used during Rails Conf 2019?"
+title: "How was Thumbtrack used during RailsConf 2019?"
 author: "Pierce Edmiston"
 output:
   bookdown::html_document2:

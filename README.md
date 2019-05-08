@@ -1,4 +1,4 @@
-How was Thumbtrack used during Rails Conf 2019?
+How was Thumbtrack used during RailsConf 2019?
 ================
 Pierce Edmiston
 
