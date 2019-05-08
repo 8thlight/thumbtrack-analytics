@@ -106,7 +106,7 @@ sessions_per_hour_plot <- Sessions %>%
   labs(
     x = "Hour",
     color = "",
-    title = "A. Visits per hour to railsconf.today"
+    title = "Visits per hour to railsconf.today"
   ) +
   t_$base_theme +
   theme(
@@ -128,7 +128,7 @@ conference_day_type_plot <- Sessions %>%
     x = "",
     y = "Visits",
     color = "",
-    title = "B. Days before and during",
+    title = "Days before and during",
     subtitle = "Visits per hour before the conference\ncompared to during the conference"
   ) +
   t_$base_theme +
@@ -149,7 +149,7 @@ hour_type_plot <- Sessions %>%
   coord_cartesian(ylim = t_$ylim_visits) +
   labs(
     x = "",
-    title = "C. Hours during and after",
+    title = "Hours during and after",
     subtitle = "Visits per hour during conference hours\ncompared to after hours."
   ) +
   t_$base_theme +

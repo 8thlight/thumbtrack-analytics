@@ -5,14 +5,15 @@ output:
   bookdown::html_document2:
     number_sections: no
     self_contained: yes
+  github_document: {}
 ---
 ```{r config, include=FALSE}
 library(knitr)
 library(tidyverse)
 library(patchwork)
 
-opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, cache=FALSE,
-               dev="png")
+opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, cache=TRUE,
+               dev="svg")
 
 read_chunk("report.R")
 
@@ -21,20 +22,20 @@ theme_set(theme_minimal(base_size=14))
 ```{r report, include=FALSE}
 ```
 
-Last week was Rails Conf in Minneapolis. I wasn't there, but I was watching the
+Last week was RailsConf in Minneapolis. I wasn't there, but I was watching the
 conference closely. The previous week, John Riccardi and I worked on the
 [8thlight/thumbtrack](https://github.com/8thlight/thumbtrack) project.
 Thumbtrack is a conference schedule planner, built using the static site
-generator [gatsby](https://www.gatsbyjs.org/). Thumbtrack was originally
+generator [GatsbyJS](https://www.gatsbyjs.org/). Thumbtrack was originally
 designed to use at
-Ruby Conf 2018 by Maggie Shemayev and Kelly Rauwerdink. John and I finished an
-iteration on the project, updating it for Rails Conf, and deploying it at
-[railsconf.today](https://railsconf.today). Check it out on your phone if you
+RubyConf 2018 by Maggie Shemayev and Kelly Rauwerdink. John and I finished an
+iteration on the project, updating it for RailsConf, and deploying it at
+[RailsConf.Today](https://railsconf.today). Check it out on your phone if you
 want to see what it's like.
 
-One of our stories was to provide the site owner (played by Jim) with more
+One of our stories was to provide the site owner (played by Jim Remsik) with more
 detailed analytics about how people were using the app. John and I paired on
-swapping out the [gatsby google analytics
+swapping out the [GatsbyJS Google Analytics
 plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/) with
 our own configuration, allowing us to record when and how people were using the
 app.
@@ -44,7 +45,11 @@ people were using the site during the conference.  This was partly to satisfy my
 own curiosity, but also because I wanted to provide some information that could 
 be used when planning how to improve the app for future conferences.
 
-# How many people were using the site during the conference?
+```{r screenshot, out.width="300px", fig.align="center"}
+include_graphics("img/railsconftoday_iphone_screenshot.png")
+```
+
+# How many people used the app during the conference?
 
 The first question I had was how many people were using the site during the
 conference. The site was visited a total of `r c_$during_conference_visits`
@@ -61,9 +66,13 @@ People who used the app, used it each day of the conference. This suggests that
 users found the app to be useful, and they weren't just checking it out once
 and forgetting about it.
 
-(ref:visits) Page views of the railsconf.today site during the week of the conference. Each point is the number of times the page was requested in an hour. The hours of the conference are shown as vertical dashed lines. The rug ticks show the times of the events at the conference. Visits during conference hours are filled, and visits after conference hours are hollowed.
+The figure below shows the page views of the site during the week of the
+conference. Each point is the number of times the page was requested in an hour.
+The hours of the conference are shown as vertical dashed lines. The rug ticks
+show the times of the events at the conference. Visits during conference hours
+are filled, and visits after conference hours are hollowed.
 
-```{r visits, fig.width=8, fig.height=8, fig.cap="(ref:visits)"}
+```{r visits, fig.width=8, fig.height=8}
 sessions_per_hour_plot +
   { conference_day_type_plot + hour_type_plot } +
   plot_layout(nrow = 2)
@@ -78,7 +87,7 @@ events that are open to conference-goers, but not official conference events,
 and are usually before or after the conference events for the day. If we add
 this feature, we would expect to get more users outside of conference hours.
 
-# When did new users arrive at the site?
+# When did users first visit the site?
 
 How did the app spread among conference participants? As we would expect, we see
 the largest pickup of new users during the first day of the conference. But the
@@ -89,7 +98,7 @@ it suggests that people at the conference were sharing the app with others.
 new_users_plot
 ```
 
-# What devices did people use to view the site?
+# What devices did people use to visit the site?
 
 This site was designed as a "mobile first" web application, but what percentage
 of users used the app on a mobile device? During Rails Conf, **`r c_$pct_mobile`%
@@ -147,13 +156,13 @@ counting the same event twice.
 I had a great time working on this project with John and the 8th Lighters in the
 Madison office, and I'm happy it was useful for the people at the conference.
 There are a number of features John and I would like to continue to add to the
-site, and we would love to see it continue to evolve and used at future
+site, and we would love to see it continue to evolve and be used at future
 conferences.
 
 # Sources
 
 * The [8thlight/thumbtrack](https://github.com/8thlight/thumbtrack) repo contains the source
-  code for the gatsby/react application.
+  code for the GatsbyJS/React application.
 * The [8thlight/thumbtrack-analytics](https://github.com/8thlight/thumbtrack-analytics) repo
-  contains the python code I wrote to query the Google Analytics API, and the R code I wrote
+  contains the Python code I wrote to query the Google Analytics API, and the R code I wrote
   to visualize the results.

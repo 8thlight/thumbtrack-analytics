@@ -7,3 +7,5 @@ data-raw/
 *.html
 .Rproj.user
 report_cache/
+report_files/
+!report_files/figure-gfm/
