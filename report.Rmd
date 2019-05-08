@@ -52,11 +52,13 @@ include_graphics("img/railsconftoday_iphone_screenshot.png")
 
 The first question I had was how many people were using the site during the
 conference. The site was visited a total of `r c_$during_conference_visits`
-times.  Of course, many of these visits were by the same people. We know that
-the site was visited by `r c_$num_devices` unique devices, but it is likely at
-least some of these devices were owned by the same people.  <!-- We can surmise
-that railsconf.today was visited by somewhat less than r c_$pct_of_conf% of the
-people at a r c_$conf_size-person conference.-->
+times. Of course, many of these visits were by the same people. We know that
+the site was visited by `r c_$num_devices` unique devices, but we don't know
+exactly how many people visited the site from multiple devices. There were
+`r c_$conf_size` people at the conference, so if we assume that everyone
+who visited the site was at the conference, we can estimate that
+**RailsConf.Today was visited by somewhat less than `r c_$pct_of_conf`% of
+conference attendees.**
 
 There were some unsurprising results, for example, that most visits were during
 conference hours. But there were some promising findings as well, namely that
@@ -67,9 +69,10 @@ and forgetting about it.
 
 The figure below shows the page views of the site during the week of the
 conference. Each point is the number of times the page was requested in an hour.
-The hours of the conference are shown as vertical dashed lines. The rug ticks
-show the times of the events at the conference. Visits during conference hours
-are filled, and visits after conference hours are hollowed.
+The hours of the conference are shown as vertical dashed lines. The rug
+ticks---the short, vertical lines along the bottom of the plot---show the times
+of the events at the conference. Points for visits during conference hours are
+filled, and points for visits after conference hours are hollowed.
 
 ```{r visits, fig.width=8, fig.height=8}
 sessions_per_hour_plot +
@@ -100,7 +103,7 @@ new_users_plot
 # What devices did people use to visit the site?
 
 This site was designed as a "mobile first" web application, but what percentage
-of users used the app on a mobile device? During Rails Conf, **`r c_$pct_mobile`%
+of users used the app on a mobile device? During RailsConf, **`r c_$pct_mobile`%
 of users were on mobile devices.** The total numbers of mobile, desktop, and
 tablet devices are shown below.
 
@@ -129,12 +132,11 @@ website.
 
 All of our event metrics tell the same story: **Users were most active on the
 first day of the conference**. This is interesting, because the number of visits
-to the site was consistent across all days of the conference, as seen in Fig.
-\@ref(fig:visits). This means that many users explored the app during the first
-few visits, viewing all the events, and pinning the ones they wanted to go to.
-On subsequent days, users continued to use the site, but without interacting
-with it as much, indicating that they were using it as their scheduler for the
-conference.
+to the site was consistent across all days of the conference, as shown above.
+This means that many users explored the app during the first few visits, viewing
+all the events, and pinning the ones they wanted to go to. On subsequent days,
+users continued to use the site, but without interacting with it as much,
+indicating that they were using it as their scheduler for the conference.
 
 ```{r events, fig.width=10}
 events_plot

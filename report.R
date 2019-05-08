@@ -110,7 +110,7 @@ sessions_per_hour_plot <- Sessions %>%
   ) +
   t_$base_theme +
   theme(
-    legend.position = c(0.08, 0.9)
+    legend.position = c(0.08, 0.88)
   )
 
 conference_day_type_plot <- Sessions %>%
@@ -249,6 +249,8 @@ user_explorer_plot <- ggplot(UserExplorer) +
 
 # in-text-citations ----
 
+CONF_SIZE = 1262  # from Marty Haught
+
 c_ <- list(
   before_conference_visits = filter(Sessions, conference_day_type == "before_conference") %>%
     .$value %>%
@@ -258,6 +260,8 @@ c_ <- list(
     sum(),
   num_devices = nrow(ClientIDs),
   pct_mobile = round(100*(filter(Devices, device == "mobile")$value/sum(Devices$value))),
-  min_browser_width = min(BrowserSizes$width),
-  min_browser_height = min(BrowserSizes$height)
+  min_browser_width = 320,
+  min_browser_height = 430,
+  conf_size = CONF_SIZE,
+  pct_of_conf = round(100*(nrow(ClientIDs)/CONF_SIZE))
 )
