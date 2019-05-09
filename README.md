@@ -86,7 +86,6 @@ Are you planning your
 schedule? <a href="https://railsconf.today">railsconf.today</a> offers a
 way to pin the talks you’re interested for quick reference throughout
 the conference.<br><br>P.s. No sign-up required. Just localStorage.
-<img src="https://t.co/wvs7DIV01r" />pic.twitter.com/wvs7DIV01r</a>
 
 </p>
 
@@ -95,8 +94,6 @@ the conference.<br><br>P.s. No sign-up required. Just localStorage.
 28, 2019</a>
 
 </blockquote>
-
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 The app was originally promoted on social media with a few tweets from
 Jim. The RailsConf Twitter account, with 22k followers, retweeted Jim’s

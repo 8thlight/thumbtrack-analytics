@@ -98,8 +98,7 @@ this feature, we would expect to get more users outside of conference hours.
 
 # How did people hear about it?
 
-<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Are you planning your <a href="https://twitter.com/hashtag/RailsConf?src=hash&amp;ref_src=twsrc%5Etfw">#RailsConf</a> schedule? <a href="https://railsconf.today">railsconf.today</a> offers a way to pin the talks you’re interested for quick reference throughout the conference.<br><br>P.s. No sign-up required. Just localStorage. <img src="https://t.co/wvs7DIV01r" />pic.twitter.com/wvs7DIV01r</a></p>&mdash; Jim Remsik (@jremsikjr) <a href="https://twitter.com/jremsikjr/status/1122511627507646466?ref_src=twsrc%5Etfw">April 28, 2019</a></blockquote>
-<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-lang="en"><p lang="en" dir="ltr">Are you planning your <a href="https://twitter.com/hashtag/RailsConf?src=hash&amp;ref_src=twsrc%5Etfw">#RailsConf</a> schedule? <a href="https://railsconf.today">railsconf.today</a> offers a way to pin the talks you’re interested for quick reference throughout the conference.<br><br>P.s. No sign-up required. Just localStorage.</p>&mdash; Jim Remsik (@jremsikjr) <a href="https://twitter.com/jremsikjr/status/1122511627507646466?ref_src=twsrc%5Etfw">April 28, 2019</a></blockquote>
 
 The app was originally promoted on social media with a few tweets from Jim. The
 RailsConf Twitter account, with 22k followers, retweeted Jim's message, but did
