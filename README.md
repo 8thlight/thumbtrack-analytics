@@ -1,4 +1,4 @@
-How was Thumbtrack used during RailsConf 2019?
+How was Thumbtrack used during RailsConf?
 ================
 Pierce Edmiston
 
@@ -14,9 +14,19 @@ for RailsConf, and deploying it at
 [RailsConf.Today](https://railsconf.today). Check it out on your phone
 if you want to see what it’s like.
 
-One of our stories was to provide the site owner (played by Jim Remsik)
-with more detailed analytics about how people were using the app. John
-and I paired on swapping out the [GatsbyJS Google Analytics
+If you haven’t used Thumbtrack yet, it’s a single-page app that displays
+a conference calendar and lets users personalize their schedule by
+pinning events they want to attend. This feature is most important for
+conferences with parallel events, like RailsConf, where attendees have
+to decide which talk to attend. John made a gif of how to use the app,
+which I’ve included below.
+
+<img src="img/railsconftoday_iphone_screenshot.png" width="300px" style="display: block; margin: auto;" />
+
+One of the stories during our iteration on the project was to provide
+the site owner (played by Jim Remsik) with more detailed analytics about
+how people were using the app. John and I paired on swapping out the
+[GatsbyJS Google Analytics
 plugin](https://www.gatsbyjs.org/packages/gatsby-plugin-google-analytics/)
 with our own configuration, allowing us to record when and how people
 were using the app.
@@ -26,8 +36,6 @@ understand how people were using the site during the conference. This
 was partly to satisfy my own curiosity, but also because I wanted to
 provide some information that could be used when planning how to improve
 the app for future conferences.
-
-<img src="img/railsconftoday_iphone_screenshot.png" width="300px" style="display: block; margin: auto;" />
 
 # How many people used the app during the conference?
 
@@ -67,13 +75,37 @@ to conference-goers, but not official conference events, and are usually
 before or after the conference events for the day. If we add this
 feature, we would expect to get more users outside of conference hours.
 
-# When did users first visit the site?
+# How did people hear about it?
 
-How did the app spread among conference participants? As we would
-expect, we see the largest pickup of new users during the first day of
-the conference. But the site continued to pick up new users, even on the
-last day. This is promising, as it suggests that people at the
-conference were sharing the app with others.
+<blockquote class="twitter-tweet" data-lang="en">
+
+<p lang="en" dir="ltr">
+
+Are you planning your
+<a href="https://twitter.com/hashtag/RailsConf?src=hash&amp;ref_src=twsrc%5Etfw">\#RailsConf</a>
+schedule? <a href="https://railsconf.today">railsconf.today</a> offers a
+way to pin the talks you’re interested for quick reference throughout
+the conference.<br><br>P.s. No sign-up required. Just localStorage.
+<img src="https://t.co/wvs7DIV01r" />pic.twitter.com/wvs7DIV01r</a>
+
+</p>
+
+— Jim Remsik (@jremsikjr)
+<a href="https://twitter.com/jremsikjr/status/1122511627507646466?ref_src=twsrc%5Etfw">April
+28, 2019</a>
+
+</blockquote>
+
+<script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+The app was originally promoted on social media with a few tweets from
+Jim. The RailsConf Twitter account, with 22k followers, retweeted Jim’s
+message, but did not promote the app on any of the conference materials.
+Other than social media posts, awareness of the app seems to have grown
+organically, resulting in a surge of new users on the first day of the
+conference. The site continued to pick up new users, even on the last
+day. This is promising, as it suggests that people at the conference
+were sharing the app with others.
 
 ![](README_files/figure-gfm/new-users-1.svg)<!-- -->
 
